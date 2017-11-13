@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import Http404
 from django.shortcuts import render
 from .models import Author
 
@@ -8,5 +8,11 @@ def index(request):
     context = { 'authors':authors }
     return render(request, 'bookshelf/index.html', context)
 
+
 def detail(request, author_id):
-    return HttpResponse('<h2>Details for Author ' + author_id + '</h2>')
+    try:
+        author = Author.objects.get(id=author_id)
+    except Author.DoesNotExist:
+        raise Http404("Sorry, authot doesn't exist")
+    context = { 'author' : author}
+    return render(request, 'bookshelf/detail.html', context)
