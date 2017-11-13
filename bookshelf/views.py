@@ -1,13 +1,15 @@
 from django.http import HttpResponse
+from django.template import loader
 from .models import Author
 
+
 def index(request):
-    html = ''
     authors = Author.objects.all()
-    for author in authors:
-        url = '/authors/' + str(author.id) + '/'
-        html += '<a href=' + url + '>' + author.name + '</a><br>'
-    return HttpResponse(html)
+    template = loader.get_template('bookshelf/index.html')
+    context = {
+        'authors':authors,
+    }
+    return HttpResponse(template.render(context=context, request=request))
 
 
 def detail(request, author_id):

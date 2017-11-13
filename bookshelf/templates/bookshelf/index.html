@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bookshelf</title>
+</head>
+<body>
+    <ul>
+        {% for author in authors %}
+            <li><a href="/authors/{{ author.id }}/">{{ author.name }}</a></li>
+        {% endfor %}
+    </ul>
+</body>
+</html>
