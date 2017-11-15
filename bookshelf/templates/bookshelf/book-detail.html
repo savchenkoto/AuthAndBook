@@ -1,0 +1,13 @@
+{% extends 'bookshelf/base.html' %}
+{% load static %}
+
+{% block title %}{{ book.title }}{% endblock %}
+{% block body %}
+    {% if book.cover %}
+        <img src="{{ book.cover.url }}">
+    {% else %}
+        <img src="{% static 'bookshelf/images/no-image.png' %}">
+    {% endif %}
+    <h1>{{ book.title }}</h1>
+    <p>{{ book.description }}</p>
+{% endblock %}

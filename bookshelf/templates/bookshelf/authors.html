@@ -1,0 +1,17 @@
+{% extends 'bookshelf/base.html' %}
+
+{% block title %}Authors{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if authors %}
+            <ul>
+                {% for author in authors %}
+                    <li><a href="{% url 'bookshelf:author' author.id %}">{{ author.name }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h3>There's no Authors yet</h3>
+        {% endif %}
+    </div>
+{% endblock %}

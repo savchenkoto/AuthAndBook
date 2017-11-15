@@ -1,0 +1,25 @@
+{% extends 'bookshelf/base.html' %}
+{% load static %}
+
+{% block title %}{{ author.name }}{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if author.photo %}
+            <img src="{{ author.photo.url }}">
+        {% else %}
+            <img src="{% static 'bookshelf/images/no-image.png' %}">
+        {% endif %}
+        <h1>{{ author.name }}</h1>
+        {% if author.book_set %}
+            <h2>Books:</h2>
+            <ul>
+                {% for book in author.book_set.all %}
+                    <li><a href="{% url 'bookshelf:book' book.id %}">{{ book.title }}</a></li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h2>We don't have books of this Author</h2>
+        {% endif %}
+    </div>
+{% endblock %}

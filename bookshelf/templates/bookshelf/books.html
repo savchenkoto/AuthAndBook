@@ -1,0 +1,20 @@
+{% extends 'bookshelf/base.html' %}
+
+{% block title %}Books{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if books %}
+            <ul>
+                {% for book in books %}
+                    <li>
+                        <a href="{% url 'bookshelf:author' book.author.id %}">{{ book.author.name }}</a>
+                        <a href="{% url 'bookshelf:book' book.id %}">{{ book.title }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <h3>There're not any books yet</h3>
+        {% endif %}
+    </div>
+{% endblock %}
