@@ -3,11 +3,17 @@
 
 {% block title %}{{ book.title }}{% endblock %}
 {% block body %}
-    {% if book.cover %}
-        <img src="{{ book.cover.url }}">
-    {% else %}
-        <img src="{% static 'bookshelf/images/no-image.png' %}">
-    {% endif %}
-    <h1>{{ book.title }}</h1>
-    <p>{{ book.description }}</p>
+  <a href="{% url 'bookshelf:book-update' book.id %}">
+    <button class="btn btn-default" type="submit">Edit</button>
+  </a>
+  <form action="{% url 'bookshelf:book-delete' book.id %}" method="post">
+    {% csrf_token %}
+    <input type="hidden" name="book_id" value="{{ book.id }}">
+    <button class="btn btn-danger">
+      Delete
+    </button>
+  </form>
+
+  <h1>{{ book.title }}</h1>
+  <p>{{ book.description }}</p>
 {% endblock %}

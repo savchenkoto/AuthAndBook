@@ -4,22 +4,32 @@
 {% block title %}{{ author.name }}{% endblock %}
 
 {% block body %}
-    <div class="container">
-        {% if author.photo %}
-            <img src="{{ author.photo.url }}">
-        {% else %}
-            <img src="{% static 'bookshelf/images/no-image.png' %}">
-        {% endif %}
-        <h1>{{ author.name }}</h1>
-        {% if author.book_set %}
-            <h2>Books:</h2>
-            <ul>
-                {% for book in author.book_set.all %}
-                    <li><a href="{% url 'bookshelf:book' book.id %}">{{ book.title }}</a></li>
-                {% endfor %}
-            </ul>
-        {% else %}
-            <h2>We don't have books of this Author</h2>
-        {% endif %}
-    </div>
+  <a href="{% url 'bookshelf:author-update' author.id %}">
+    <button class="btn btn-default" type="button">Edit</button>
+  </a>
+
+  <form action="{% url 'bookshelf:author-delete' author.id %}" method="post" style="display: inline">
+    {% csrf_token %}
+    <input type="hidden" name="author_id" value="{{ author.id }}">
+    <button class="btn btn-danger" type="submit">
+      Delete
+    </button>
+  </form>
+
+
+  <h1>{{ author.name }}</h1>
+  <p>{{ author.about }}</p>
+  {% if author.book_set.all %}
+    <h2>Books:</h2>
+    <ul>
+      {% for book in author.book_set.all %}
+        <li><a href="{% url 'bookshelf:book' book.id %}">{{ book.title }}</a></li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <h2>We don't have books of this Author</h2>
+  {% endif %}
+
+
+
 {% endblock %}
