@@ -3,10 +3,10 @@
 {% block body %}
 
   {% if query %}
-    <h3>{{ size }} results for <span style="font-style: italic">"{{ query }}"</span></h3>
+    <h3>{{ object_list.count }} results for <span style="font-style: italic">"{{ query }}"</span></h3>
     <table class="table table-bordered table-hover">
       <tbody>
-      {% for book in  query_list %}
+      {% for book in  object_list %}
         <tr>
           <td><a href="{% url 'bookshelf:author'  book.author.id %}">{{ book.author }}</a></td>
           <td><a href="{% url 'bookshelf:book' book.id %}">{{ book.title }}</a></td>

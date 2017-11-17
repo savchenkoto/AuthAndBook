@@ -9,10 +9,10 @@
     <button class="btn btn-default">Add</button>
   </form><br>
 
-  {% if authors %}
+  {% if object_list %}
     <table class="table table-hover table-bordered">
       <tbody>
-      {% for author in authors %}
+      {% for author in object_list %}
         <tr>
           <td><a href="{% url 'bookshelf:author' author.pk %}">{{ author.name }}</a></td>
         </tr>
