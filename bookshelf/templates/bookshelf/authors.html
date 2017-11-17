@@ -3,9 +3,12 @@
 {% block title %}Authors{% endblock %}
 
 {% block body %}
-  <a href="{% url 'bookshelf:author-add' %}">
-    <button class="btn btn-default" type="button">Add</button>
-  </a><br><br>
+
+  <form method="post" action="{% url 'bookshelf:author-add' %}">
+    {% csrf_token %}
+    <button class="btn btn-default">Add</button>
+  </form><br>
+
   {% if authors %}
     <table class="table table-hover table-bordered">
       <tbody>
@@ -19,4 +22,5 @@
   {% else %}
     <h3>There's no Authors yet</h3>
   {% endif %}
+
 {% endblock %}

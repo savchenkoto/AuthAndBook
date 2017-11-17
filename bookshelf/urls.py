@@ -19,7 +19,7 @@ urlpatterns = [
         DetailView.as_view(model=Book, template_name='bookshelf/book_detail.html'),
         name='book'),
 
-    url(r'author/add/$',
+    url(r'author/new/$',
         CreateView.as_view(model=Author, fields=['name', 'about'], template_name='bookshelf/model_form.html'),
         name='author-add'),
 
