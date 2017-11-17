@@ -1,61 +1,47 @@
-from django.shortcuts import get_object_or_404
 from django.shortcuts import render
-from .models import Author, Book
 from django.views.generic import ListView, DetailView
-from django.views.generic.edit import CreateView, DeleteView, UpdateView
+from django.views.generic import CreateView, DeleteView, UpdateView
+from django.views import generic
 from django.urls import reverse_lazy
+from django.db.models import Q
 
-class AuthorDetail(DetailView):
-    model = Author
-    template_name = 'bookshelf/author-detail.html'
-
-
-class BookDetail(DetailView):
-    model = Book
-    template_name = 'bookshelf/book-detail.html'
-
-
-class Books(ListView):
-    template_name = 'bookshelf/books.html'
-    context_object_name = 'books'
-
-    def get_queryset(self):
-        return Book.objects.all()
+from .models import Author, Book
 
 
 class Authors(ListView):
     template_name = 'bookshelf/authors.html'
     context_object_name = 'authors'
+    model = Author
 
     def get_queryset(self):
-        return Author.objects.all()
+        return self.model.objects.all()
 
 
-class AuthorCreate(CreateView):
-    model = Author
-    fields = ['name', 'about']
-
-
-class AuthorUpdate(UpdateView):
-    model = Author
-    fields = ['name', 'about']
-
-
-class AuthorDelete(DeleteView):
-    model = Author
-    success_url = reverse_lazy('bookshelf:authors')
-
-
-class BookCreate(CreateView):
+class Books(ListView):
     model = Book
-    fields = ['author', 'title', 'description']
+    template_name = 'bookshelf/books.html'
+
+    def get_queryset(self):
+        return self.model.objects.all()
 
 
-class BookUpdate(UpdateView):
+class BooksSearch(ListView):
     model = Book
-    fields = ['author', 'title', 'description']
+    context_object_name = 'query_list'
+    template_name = 'bookshelf/search_results.html'
 
+    def get_queryset(self):
+        result = self.model.objects.all()
+        query = self.request.GET.get('q')
+        if query:
+            result = result.filter(
+                Q(title__icontains=query) |
+                Q(author__name__icontains=query)
+            )
+        return result
 
-class BookDelete(DeleteView):
-    model = Book
-    success_url = reverse_lazy('bookshelf:books')
+    def get_context_data(self, **kwargs):
+        context = super(BooksSearch, self).get_context_data(**kwargs)
+        context.update({'query': self.request.GET.get('q'),
+                        'size': len(self.get_queryset())})
+        return context

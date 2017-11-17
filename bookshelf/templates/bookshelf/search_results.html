@@ -1,0 +1,21 @@
+{% extends 'bookshelf/base.html' %}
+
+{% block body %}
+
+  {% if query %}
+    <h3>{{ size }} results for <span style="font-style: italic">"{{ query }}"</span></h3>
+    <table class="table table-bordered table-hover">
+      <tbody>
+      {% for book in  query_list %}
+        <tr>
+          <td><a href="{% url 'bookshelf:author'  book.author.id %}">{{ book.author }}</a></td>
+          <td><a href="{% url 'bookshelf:book' book.id %}">{{ book.title }}</a></td>
+        </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+  {% else %}
+    <h2>No search query given</h2>
+  {% endif %}
+
+{% endblock %}

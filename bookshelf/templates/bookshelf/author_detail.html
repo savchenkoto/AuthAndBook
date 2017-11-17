@@ -21,11 +21,15 @@
   <p>{{ author.about }}</p>
   {% if author.book_set.all %}
     <h2>Books:</h2>
-    <ul>
+    <table class="table table-bordered table-hover">
+      <tbody>
       {% for book in author.book_set.all %}
-        <li><a href="{% url 'bookshelf:book' book.id %}">{{ book.title }}</a></li>
+        <tr>
+          <td><a href="{% url 'bookshelf:book' book.id %}">{{ book.title }}</a></td>
+        </tr>
       {% endfor %}
-    </ul>
+      </tbody>
+    </table>
   {% else %}
     <h2>We don't have books of this Author</h2>
   {% endif %}

@@ -2,16 +2,19 @@
 
 {% block title %}Books{% endblock %}
 
+{% block search-line %}
+
+{% endblock %}
+
 {% block body %}
 
   <a href="{% url 'bookshelf:book-add' %}">
     <button class="btn btn-default" type="submit">Add</button>
   </a><br><br>
-
-  {% if books %}
+  {% if object_list %}
     <table class="table table-bordered table-hover">
       <tbody>
-      {% for book in books %}
+      {% for book in object_list %}
         <tr>
           <td><a href="{% url 'bookshelf:author' book.author.id %}">{{ book.author }}</a></td>
           <td><a href="{% url 'bookshelf:book' book.id %}">{{ book.title }}</a></td>
@@ -22,6 +25,5 @@
   {% else %}
     <h3>There're not any books yet</h3>
   {% endif %}
-
 
 {% endblock %}
