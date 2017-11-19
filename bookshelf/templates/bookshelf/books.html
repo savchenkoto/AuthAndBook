@@ -8,18 +8,16 @@
 
 {% block body %}
 
-  <form method="post" action="{% url 'bookshelf:book-add' %}">
-    {% csrf_token %}
-    <button class="btn btn-default">Add</button>
-  </form><br>
+  <a class="btn btn-default " href="{% url 'bookshelf:book-add' %}">Add</a><br><br>
 
   {% if object_list %}
     <table class="table table-bordered table-hover">
       <tbody>
       {% for book in object_list %}
         <tr>
-          <td><a href="{% url 'bookshelf:author' book.author.id %}">{{ book.author }}</a></td>
-          <td><a href="{% url 'bookshelf:book' book.id %}">{{ book.title }}</a></td>
+          <td>
+            <a href="{% url 'bookshelf:book' book.id %}">{{ book.title }}</a>
+          </td>
         </tr>
       {% endfor %}
       </tbody>

@@ -1,0 +1,32 @@
+{% extends 'bookshelf/base.html' %}
+
+{% block title %}Login{% endblock %}
+
+{% block body %}
+
+  <div class="row">
+    <div class="col-sm-8 col-md-4">
+      <div class="panel panel-default">
+        <div class="panel-body">
+
+
+          <form method="post">{% csrf_token %}
+            {% for field in form %}
+              <div class="form-group">
+                <label>
+                  {{ field.label_tag }}{{ field }}
+                </label>
+              </div>
+            {% endfor %}
+            <div class="form-group">
+              <input class="btn btn-success" type="submit" value="Submit">
+            </div>
+          </form>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+{% endblock %}

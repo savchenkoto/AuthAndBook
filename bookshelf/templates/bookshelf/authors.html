@@ -4,10 +4,7 @@
 
 {% block body %}
 
-  <form method="post" action="{% url 'bookshelf:author-add' %}">
-    {% csrf_token %}
-    <button class="btn btn-default">Add</button>
-  </form><br>
+  <a class="btn btn-default" href="{% url 'bookshelf:author-add' %}">Add</a> <br><br>
 
   {% if object_list %}
     <table class="table table-hover table-bordered">

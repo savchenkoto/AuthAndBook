@@ -5,13 +5,9 @@
 
 {% block body %}
 
-  <form method="post" action="{% url 'bookshelf:author-update' author.id %}" style="display: inline">
-    {% csrf_token %}
-    <button class="btn btn-default">Edit</button>
-  </form>
+  <a class="btn btn-default" href="{% url 'bookshelf:author-update' author.id %}">Edit</a>
 
-  <form method="post" action="{% url 'bookshelf:author-delete' author.id %}" style="display: inline">
-    {% csrf_token %}
+  <form method="post" action="{% url 'bookshelf:author-delete' author.id %}" style="display: inline">{% csrf_token %}
     <input type="hidden" name="author_id" value="{{ author.id }}">
     <button class="btn btn-danger" type="submit">
       Delete

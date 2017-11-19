@@ -4,14 +4,9 @@
 {% block title %}{{ book.title }}{% endblock %}
 {% block body %}
 
-  <form method="post" action="{% url 'bookshelf:book-update' book.id %}" style="display: inline">
-    {% csrf_token %}
-    <button class="btn btn-default">Edit</button>
-  </form>
+  <a class="btn btn-default " href="{% url 'bookshelf:book-update' book.id %}">Edit</a>
 
-
-  <form action="{% url 'bookshelf:book-delete' book.id %}" method="post" style="display: inline">
-    {% csrf_token %}
+  <form action="{% url 'bookshelf:book-delete' book.id %}" method="post" style="display: inline">{% csrf_token %}
     <input type="hidden" name="book-id" value="{{ book.id }}">
     <button class="btn btn-danger">
       Delete
@@ -19,7 +14,7 @@
   </form>
 
   <h1>{{ book.title }}
-    <small> by {{ book.author.name }}</small>
+    <small> by <a style="text-decoration: none" href="{% url 'bookshelf:author' book.author.id %}">{{ book.author.name }}</a></small>
   </h1>
 
   <p>{{ book.description }}</p>
