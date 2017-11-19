@@ -20,13 +20,13 @@ urlpatterns = [
             template_name='bookshelf/authors.html'),
         name='authors'),
 
-    url(r'book/(?P<pk>[0-9]+)/$',
+    url(r'book/(?P<pk>\d+)/$',
         DetailView.as_view(
             model=Book,
             template_name='bookshelf/book_detail.html'),
         name='book'),
 
-    url(r'^author/(?P<pk>[0-9]+)/$',
+    url(r'^author/(?P<pk>\d+)/$',
         DetailView.as_view(
             model=Author,
             template_name='bookshelf/author_detail.html'),
@@ -36,45 +36,44 @@ urlpatterns = [
         CreateView.as_view(
             model=Author,
             fields=['name', 'about'],
-            template_name='bookshelf/model_form.html'),
+            template_name='form.html'),
         name='author-add'),
 
-    url(r'author/(?P<pk>[0-9]+)/delete/$',
+    url(r'author/(?P<pk>\d+)/delete/$',
         DeleteView.as_view(
             model=Author,
             success_url=reverse_lazy('bookshelf:authors')),
         name='author-delete'),
 
-    url(r'author/(?P<pk>[0-9]+)/update/$',
+    url(r'author/(?P<pk>\d+)/update/$',
         UpdateView.as_view(
             model=Author,
             fields=['name', 'about'],
-            template_name='bookshelf/model_form.html'),
+            template_name='form.html'),
         name='author-update'),
 
     url(r'book/new/$',
         CreateView.as_view(
             model=Book,
             fields=['author', 'title', 'description'],
-            template_name='bookshelf/model_form.html'),
+            template_name='form.html'),
         name='book-add'),
 
-    url(r'book/(?P<pk>[0-9]+)/delete/$',
+    url(r'book/(?P<pk>\d+)/delete/$',
         DeleteView.as_view(
             model=Book,
             success_url=reverse_lazy('bookshelf:books')),
         name='book-delete'),
 
-    url(r'book/(?P<pk>[0-9]+)/update/$',
+    url(r'book/(?P<pk>\d+)/update/$',
         UpdateView.as_view(
             model=Book,
             fields=['author', 'title', 'description'],
-            template_name='bookshelf/model_form.html'),
+            template_name='form.html'),
         name='book-update'),
 
     url(r'books/search/$',
         BooksSearch.as_view(),
         name='books-search')
-
 
 ]

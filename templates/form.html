@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+
+{% block title %}Bookshelf{% endblock %}
+
+
+{% block body %}
+
+  <div class="row">
+    <div class="col-lg-4 col-md-4 col-sm-4"></div>
+    <div class="col-lg-4 col-md-4 col-sm-4">
+      <form method="post" class="text-center">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <input class="btn btn-default" type="submit" value="Submit"/>
+      </form>
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4"></div>
+  </div>
+
+{% endblock %}

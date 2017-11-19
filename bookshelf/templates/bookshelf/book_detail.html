@@ -1,7 +1,7 @@
-{% extends 'bookshelf/base.html' %}
+{% extends 'base.html' %}
 {% load static %}
 
-{% block title %}{{ book.title }}{% endblock %}
+
 {% block body %}
 
   <a class="btn btn-default " href="{% url 'bookshelf:book-update' book.id %}">Edit</a>

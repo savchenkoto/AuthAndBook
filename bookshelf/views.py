@@ -1,11 +1,11 @@
-from django.shortcuts import render, redirect
-from django.views.generic import ListView, View
+from django.views.generic import ListView
 from django.db.models import Q
 
 from .models import Book
 
 
 class BooksSearch(ListView):
+
     model = Book
     template_name = 'bookshelf/search_results.html'
 
@@ -22,4 +22,3 @@ class BooksSearch(ListView):
     def get_context_data(self, **kwargs):
         kwargs['query'] = self.request.GET.get('q')
         return super().get_context_data(**kwargs)
-
